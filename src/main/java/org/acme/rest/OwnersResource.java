@@ -1,7 +1,7 @@
 package org.acme.rest;
 
 import java.net.URI;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -20,14 +20,14 @@ import org.acme.model.Owner;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import org.acme.model.OwnerForm;
-import org.acme.service.OwnersService;
+import org.acme.repository.OwnerRepository;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 @Path("/")
 public class OwnersResource {
 
     @Inject
-    OwnersService service;
+    OwnerRepository ownerRepository;
 
     @Inject
     Template owners;
@@ -40,7 +40,7 @@ public class OwnersResource {
     @Path("owners")
     public TemplateInstance findOwners(@QueryParam("id") Long id) {
         return owners.data("active", "owners")
-                    .data("owners", ((id == null) ? id : Arrays.asList(service.findById(id))));
+                    .data("owners", ((id == null) ? id : List.of(Owner.findById(id))));
     }
 
     @GET
@@ -49,8 +49,7 @@ public class OwnersResource {
     public TemplateInstance findByLastName(@QueryParam("lastName") String lastName) {
         return owners.data("active", "owners")
                     .data("lastName", lastName)
-                    .data("owners", service.findByLastName(lastName));
-
+                    .data("owners", ownerRepository.findByLastName(lastName));
     }
 
     @POST
@@ -70,9 +69,8 @@ public class OwnersResource {
     @Produces(MediaType.TEXT_HTML)
     @Path("getOwner")
     public TemplateInstance editOwner(@QueryParam("ownerId") Long ownerId) {
-        
         return editOwner.data("active", "owners")
-                        .data("owner", ((ownerId == null) ? "new" : service.findById(ownerId)));
+                        .data("owner", ((ownerId == null) ? "new" : Owner.findById(ownerId)));
     }
 
     @POST
@@ -80,8 +78,7 @@ public class OwnersResource {
     @Transactional
     @Path("editOwner")
     public Response editOwner(@MultipartForm OwnerForm ownerForm, @QueryParam("ownerId") Long ownerId) {
-
-        Owner existingOwner = service.findById(ownerId);
+        Owner existingOwner = Owner.findById(ownerId);
         existingOwner = ownerForm.editOwner(existingOwner);
         return Response.status(301)
                     .location(URI.create("/owners?id=" + ownerId))
