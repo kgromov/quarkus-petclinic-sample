@@ -39,7 +39,7 @@ public class Pet extends PanacheEntityBase {
 	@JoinColumn(name = "type_id")
 	public PetType type;
 
-	public Object getPetType() {
+	public PetType getPetType() {
 		return this.type;
 	}
 

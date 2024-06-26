@@ -51,7 +51,7 @@ public class PetsResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
     @Path("editPet")
-    public Response editOwner(@MultipartForm PetForm petForm,
+    public Response editPet(@MultipartForm PetForm petForm,
                               @QueryParam("ownerId") Long ownerId,
                               @QueryParam("petId")Long petId) {
         Pet existingPet = Pet.findById(petId);

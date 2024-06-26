@@ -37,7 +37,8 @@ public class OwnersResource {
     @Path("owners")
     public TemplateInstance findOwners(@QueryParam("id") Long id) {
         return owners.data("active", "owners")
-                    .data("owners", ofNullable(id).map(ownerId -> List.of(Owner.findById(ownerId))).orElse(emptyList()));
+                .data("lastName", null)
+                .data("owners", ofNullable(id).map(ownerId -> List.of(Owner.findById(ownerId))).orElse(emptyList()));
     }
 
     @GET
@@ -45,8 +46,8 @@ public class OwnersResource {
     @Path("find")
     public TemplateInstance findByLastName(@QueryParam("lastName") String lastName) {
         return owners.data("active", "owners")
-                    .data("lastName", lastName)
-                    .data("owners", ownerRepository.findByLastName(lastName));
+                .data("lastName", lastName)
+                .data("owners", ownerRepository.findByLastName(lastName));
     }
 
     @POST
@@ -57,8 +58,8 @@ public class OwnersResource {
         Owner newOwner = ownerForm.addOwner();
         newOwner.persist();
         return Response.status(301)
-                    .location(URI.create("/owners?id=" + newOwner.getId()))
-                    .build();
+                .location(URI.create("/owners?id=" + newOwner.getId()))
+                .build();
     }
 
     @GET
@@ -66,7 +67,7 @@ public class OwnersResource {
     @Path("getOwner")
     public TemplateInstance editOwner(@QueryParam("ownerId") Long ownerId) {
         return editOwner.data("active", "owners")
-                        .data("owner", ((ownerId == null) ? "new" : Owner.findById(ownerId)));
+                .data("owner", ((ownerId == null) ? "new" : Owner.findById(ownerId)));
     }
 
     @POST
@@ -77,8 +78,8 @@ public class OwnersResource {
         Owner existingOwner = Owner.findById(ownerId);
         existingOwner = ownerForm.editOwner(existingOwner);
         return Response.status(301)
-                    .location(URI.create("/owners?id=" + ownerId))
-                    .build();
+                .location(URI.create("/owners?id=" + ownerId))
+                .build();
     }
 
 }
