@@ -6,14 +6,14 @@ import org.acme.model.Owner;
 import org.acme.model.Pet;
 import org.acme.model.Visit;
 import org.acme.model.VisitForm;
-import org.jboss.resteasy.annotations.jaxrs.QueryParam;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.jboss.resteasy.reactive.MultipartForm;
+
 import java.net.URI;
 
 @Path("/")

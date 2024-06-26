@@ -3,25 +3,22 @@ package org.acme.rest;
 import java.net.URI;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.POST;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 
 import org.acme.model.Owner;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-
 import org.acme.model.OwnerForm;
 import org.acme.repository.OwnerRepository;
-import org.jboss.resteasy.annotations.jaxrs.QueryParam;
+import org.jboss.resteasy.reactive.MultipartForm;
+
+import static java.util.Collections.emptyList;
+import static java.util.Optional.ofNullable;
 
 @Path("/")
 public class OwnersResource {
@@ -40,7 +37,7 @@ public class OwnersResource {
     @Path("owners")
     public TemplateInstance findOwners(@QueryParam("id") Long id) {
         return owners.data("active", "owners")
-                    .data("owners", ((id == null) ? id : List.of(Owner.findById(id))));
+                    .data("owners", ofNullable(id).map(ownerId -> List.of(Owner.findById(ownerId))).orElse(emptyList()));
     }
 
     @GET
@@ -57,7 +54,6 @@ public class OwnersResource {
     @Transactional
     @Path("addOwner")
     public Response addOwner(@MultipartForm OwnerForm ownerForm) {
-
         Owner newOwner = ownerForm.addOwner();
         newOwner.persist();
         return Response.status(301)

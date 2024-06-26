@@ -2,12 +2,12 @@ package org.acme.model;
 
 import java.time.LocalDate;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotEmpty;
+import jakarta.persistence.Cacheable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -22,7 +22,7 @@ public class Visit extends PanacheEntity {
     @Column(name = "visit_date")
 	public LocalDate date;
 
-	@NotEmpty
+	@NotBlank
 	public String description;
 
 	public Pet getPet() {

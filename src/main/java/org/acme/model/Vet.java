@@ -2,13 +2,13 @@ package org.acme.model;
 
 import java.util.List;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotEmpty;
+import jakarta.persistence.Cacheable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -17,11 +17,11 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 public class Vet extends PanacheEntity {
 
 	@Column(name = "first_name")
-	@NotEmpty
+	@NotBlank
 	public String firstName;
 
 	@Column(name = "last_name")
-	@NotEmpty
+	@NotBlank
 	public String lastName;
 
 	@ManyToMany
