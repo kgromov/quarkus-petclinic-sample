@@ -66,8 +66,9 @@ public class OwnersResource {
     @Produces(MediaType.TEXT_HTML)
     @Path("getOwner")
     public TemplateInstance editOwner(@QueryParam("ownerId") Long ownerId) {
+        // TODO: add validation on not found by id
         return editOwner.data("active", "owners")
-                .data("owner", ((ownerId == null) ? "new" : Owner.findById(ownerId)));
+                .data("owner", ((ownerId == null) ? null : Owner.findById(ownerId)));
     }
 
     @POST
