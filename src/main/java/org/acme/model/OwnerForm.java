@@ -1,15 +1,15 @@
 package org.acme.model;
 
-import jakarta.ws.rs.FormParam;
+import org.jboss.resteasy.reactive.RestForm;
 
 public class OwnerForm {
 
-//    public @FormParam("id") String id;
-    public @FormParam("firstName") String firstName;
-    public @FormParam("lastName") String lastName;
-    public @FormParam("address") String address;
-    public @FormParam("city") String city;
-    public @FormParam("telephone") String telephone;
+//    public @RestForm("id") String id;
+    public @RestForm("firstName") String firstName;
+    public @RestForm("lastName") String lastName;
+    public @RestForm("address") String address;
+    public @RestForm("city") String city;
+    public @RestForm("telephone") String telephone;
 
     public Owner addOwner() {
         Owner newOwner = new Owner();

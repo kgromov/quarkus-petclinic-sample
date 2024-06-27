@@ -18,7 +18,7 @@ public class VetsResource {
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance get() {
+    public TemplateInstance getVets() {
         return vets.data("active", "vets")
                 .data("vets", Vet.listAll());
     }

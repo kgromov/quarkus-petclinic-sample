@@ -1,13 +1,14 @@
 package org.acme.model;
 
+import org.jboss.resteasy.reactive.RestForm;
+
 import java.time.LocalDate;
-import jakarta.ws.rs.FormParam;
 
 public class PetForm {
 
-    public @FormParam("name") String name;
-    public @FormParam("birthDate") LocalDate birthDate;
-    public @FormParam("type") String type;
+    public @RestForm("name") String name;
+    public @RestForm("birthDate") LocalDate birthDate;
+    public @RestForm("type") String type;
 
     public Pet addPet() {
         Pet newPet = new Pet();
@@ -21,5 +22,4 @@ public class PetForm {
         existingPet.birthDate = birthDate;
         return existingPet;
     }
-    
 }

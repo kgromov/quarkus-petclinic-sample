@@ -28,22 +28,22 @@ public class VisitsResource {
     public TemplateInstance getPet(@QueryParam("ownerId") Long ownerId,
                                    @QueryParam("petId") Long petId) {
         return visit.data("active", "owners")
-                    .data("owner", Owner.findById(ownerId))
-                    .data("pet", Pet.findById(petId));
+                .data("owner", Owner.findById(ownerId))
+                .data("pet", Pet.findById(petId));
     }
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
     @Path("addVisit")
-    public Response addPet(@MultipartForm VisitForm visitForm,
-                           @QueryParam("ownerId") Long ownerId,
-                           @QueryParam("petId") Long petId) {
+    public Response addVisit(VisitForm visitForm,
+                             @QueryParam("ownerId") Long ownerId,
+                             @QueryParam("petId") Long petId) {
         Visit newVisit = visitForm.addVisit();
         newVisit.setPet(Pet.findById(petId));
         newVisit.persist();
         return Response.status(301)
-                    .location(URI.create("/owners?id=" + ownerId))
-                    .build();
+                .location(URI.create("/owners?id=" + ownerId))
+                .build();
     }
 }

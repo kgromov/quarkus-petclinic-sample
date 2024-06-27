@@ -19,7 +19,7 @@ public class OupsResource {
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {
         return oups.data("active", "oups")
-                .data("message", "Expected: controller used to showcase what " + "happens when an exception is thrown");
+                .data("message", "Expected: resource is used to showcase what happens when an exception is thrown");
     }
     
 }

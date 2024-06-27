@@ -1,12 +1,13 @@
 package org.acme.model;
 
+import org.jboss.resteasy.reactive.RestForm;
+
 import java.time.LocalDate;
-import jakarta.ws.rs.FormParam;
 
 public class VisitForm {
 
-    public @FormParam("date") LocalDate date;
-    public @FormParam("description") String description;
+    public @RestForm LocalDate date;
+    public @RestForm String description;
 
     public Visit addVisit() {
         Visit newVisit = new Visit();

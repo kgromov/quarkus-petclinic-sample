@@ -17,7 +17,7 @@ public class WelcomeResource {
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance get() {
+    public TemplateInstance welcome() {
         return welcome.data("active", "home");
     }
 
