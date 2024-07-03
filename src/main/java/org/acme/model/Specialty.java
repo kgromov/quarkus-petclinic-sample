@@ -14,7 +14,4 @@ public class Specialty extends PanacheEntity {
   
     public String name;
 
-    @ManyToMany(mappedBy = "specialties")
-    public List<Vet> vets;
-
 }
